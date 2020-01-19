@@ -53,3 +53,13 @@ php artisan make:middleware AdminAuthenticate
 -- CHECK ROUTES
 php artisan route:list
 
+examples:
+
+#create comment alone, postid and request stuff
+Route::put('/posts/{postid}/createcomment', 'Comment\\CommentController@createcomment')->name('comments.createcomment')->middleware(['auth']);
+
+#query search/find
+Route::get('/search', 'Post\\PostController@search')->name('search')->middleware(['auth']);
+Route::put('/search/result', 'Post\\PostController@search')->name('results')->middleware(['auth']);
+
+
