@@ -1,0 +1,28 @@
+#php and laravel
+sudo apt-get install php7.2-zip
+udo chown -R sudu /home/sudu/.composer/cache/repo/https---repo.packagist.org/
+udo chown -R sudu /home/sudu/.composer/files/
+udo chown -R sudu /home/sudu/.composer
+
+#composer
+sudo apt-get install composer
+composer global require laravel/installer
+composer create-project --prefer-dist laravel/laravel blog
+
+#auth
+composer require laravel/ui
+php artisan ui vue --auth
+php artisan migrate
+composer update
+
+
+#mysql
+sudo apt install mysql-server
+sudo mysql_secure_installation
+
+
+#atom
+wget -qO - https://packagecloud.io/AtomEditor/atom/gpgkey | sudo apt-key add -
+sudo sh -c 'echo "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main" > /etc/apt/sources.list.d/atom.list'
+sudo apt-get update
+sudo apt-get install atom
