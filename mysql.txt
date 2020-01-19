@@ -1,0 +1,23 @@
+sudo mysql -uroot -p
+
+create database laravela;
+
+use laravela
+
+CREATE TABLE users (
+    username char(255) NOT NULL,
+    password char(255) NOT NULL,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP,
+    PRIMARY KEY (username)
+);
+
+
+INSERT INTO users (username, password) VALUES("1", "2");
+INSERT INTO users (username, password) VALUES("judite", "123");
+
+
+select * from users;
+
+
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';

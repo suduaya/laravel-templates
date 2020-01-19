@@ -1,0 +1,55 @@
+
+---- CREATE PROJECT
+composer create-project --prefer-dist laravel/laravel myproject 
+php artisan key:generate
+
+-- USE AUTH MODULE TEMPLATE
+php artisan make:auth
+php artisan migrate
+
+-- CREATE MODEL (with migration)
+php artisan make:model Model -m
+
+-- PIVOT MIGRATION
+php artisan make:migration create_role_user_table
+
+
+-- USER
+  public function roles(){
+    return $this->belongsToMany('App\Role', "role_id");
+  }
+  
+  public function hasAnyRoles($roles){
+    return null !== $this->roles()->whereIn('name', $roles)->first();
+  }
+  
+  public function hasAnyRole($role){
+    return null !== $this->roles()->where('name', $role)->first();
+  }
+  
+-- ROLE
+public function users(){
+      return $this->belongsToMany('App\User', 'user_id');
+    }
+
+
+-- DB SEEDER
+php artisan make:seed RolesTableSeeder
+php artisan migrate:fresh
+php artisan db:seed
+
+-- CONTROLLER with Resource (CRUD)
+php artisan make:controller Admin\\UserController -r
+
+-- ROUTE EXAMPLE
+Route::namespace('Admin')->prefix('admin')->name("admin.")->group(function(){
+  Route::resource('/users', 'UserController', ['except' => ['show', 'create', 'store']])->middleware(['auth', 'auth.admin']);
+});
+
+
+-- MIDDLEWARE (NOT FORGET TO subscribe on kernel.php)
+php artisan make:middleware AdminAuthenticate
+
+-- CHECK ROUTES
+php artisan route:list
+
