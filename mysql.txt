@@ -1,5 +1,7 @@
 sudo mysql -uroot -p
 
+sudo mysql -u root -p
+
 create database laravela;
 
 use laravela
